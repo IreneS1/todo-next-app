@@ -17,23 +17,25 @@ export default function item() {
     };
 
     return (
-        <Card elevation={8} sx={{ minWidth: 400, borderRadius: "18px" }}>
+        <Card elevation={8} sx={{ minWidth: 410, borderRadius: "18px" }}>
             <CardContent>
-                <Grid container direction="row" justifyContent="space-between">
-                    <Grid item>
+                <Grid container alignItems="center">
+                    <Grid item xs >
                         <Checkbox
                             checked={checked}
                             onChange={handleChange}
                             inputProps={{ 'aria-label': 'controlled' }}
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={8}>
                         <Typography color="text.secondary" >
                             Todo Item
                         </Typography>
                     </Grid>
-                    <Grid item>
-                        <IconButton><DeleteForeverIcon /></IconButton>
+                    <Grid item xs>
+                        <IconButton edge="end" aria-label="delete">
+                            <DeleteForeverIcon />
+                        </IconButton>
                     </Grid>
                 </Grid>
             </CardContent>

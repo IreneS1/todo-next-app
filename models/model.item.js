@@ -1,12 +1,18 @@
-import { Schema, model, models } from 'mongoose';
-import List from '../models/model.list'
-
-const ObjectID = require('mongodb').ObjectId;
+import { Schema, model, models, Types } from 'mongoose';
 
 const itemSchema = new Schema({
-    title: String,
-    status: Boolean,
-    list_id: String,
+    title: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    status: {
+        type: Boolean,
+        default: false,
+    },
+    list_id: {
+        type: String,
+    }
 });
 
 const Item = models.Item || model('Item', itemSchema);

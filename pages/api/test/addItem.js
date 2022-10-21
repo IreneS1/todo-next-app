@@ -1,5 +1,4 @@
 import connectMongo from '../../../utils/connectMongo';
-import List from '../../../models/model.list';
 import Item from '../../../models/model.item';
 
 /**
@@ -15,7 +14,7 @@ export default async function addTest(req, res) {
         console.log('CREATING DOCUMENT');
         const item = await Item.create(req.body);
         console.log('CREATED DOCUMENT');
-
+        console.log(req.body);
         res.json({ item });
     } catch (error) {
         console.log(error);

@@ -10,21 +10,6 @@ import UserInput from '../components/userInput'
 
 export default function Home({ lists }) {
 
-  // const listTest = async () => {
-  //   const randomNum = Math.floor(Math.random() * 1000);
-  //   const res = await fetch('/api/test/addList', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       title: `List ${randomNum}`,
-  //     }),
-  //   });
-  //   const data = await res.json();
-  //   console.log(data);
-  // }
-
   return (
     <div className={styles.container}>
       <Head>

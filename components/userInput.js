@@ -1,19 +1,18 @@
 import React from 'react'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { TextField, IconButton, FormControl, InputLabel, InputAdornment, Input } from '@mui/material';
+import { IconButton, FormControl, InputLabel, InputAdornment, Input } from '@mui/material';
 
 export default function userInput() {
     const [userInput, setUserInput] = React.useState('');
-    const [todoList, setTodoList] = React.useState([]);
 
     const handleChange = (e) => {
         e.preventDefault();
         setUserInput(e.target.value);
     }
 
-    // onClick the List title needs to POST to mongoDB
+    // onClick the List title POST to mongoDB
     const handleClick = async () => {
-        const res = await fetch('/api/test/addList', {
+        const res = await fetch('/api/lists/list', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +23,9 @@ export default function userInput() {
         });
         const data = await res.json();
         console.log(data);
+        setUserInput('')
     }
+
 
     return (
         <>

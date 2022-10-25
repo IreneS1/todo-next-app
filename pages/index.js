@@ -1,14 +1,17 @@
 import React from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Item from '../components/item'
 import ListCard from '../components/listCard'
-import { Typography } from '@mui/material'
+import { Typography, Grid } from '@mui/material'
 import connectMongo from '../utils/connectMongo';
 import List from '../models/model.list';
 import UserInput from '../components/userInput'
 
+
 export default function Home({ lists }) {
+  // stores getServerSideProps list from mongoDB into a state 
+  // to be able to manipulate in the ui
+  const [storedList, setStoredList] = React.useState(lists)
 
   return (
     <div className={styles.container}>
@@ -18,27 +21,38 @@ export default function Home({ lists }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <Typography variant='h2'> Your Task Lists</Typography>
-        <UserInput />
-        <ListCard />
-        <br />
-        <Item />
-        <div>
-          {lists.map((list) => (
-            <a
-              href="https://nextjs.org/docs"
-              key={list._id}
-            >
-              <p>{list.title}</p>
-            </a>
+      <main >
+        <Typography className={styles.header} variant='h2'> Your Task Lists</Typography>
+        <Grid item >
+          <Typography variant='body1' color='text.secondary'>Collections:</Typography>
+          <Grid item >
+            <UserInput />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          spacing={6}
+          direction='row'
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
+
+          <br />
+          {storedList.map((list) => (
+            <Grid key={list._id} item xs={4}>
+              <ListCard
+                key={list._id}
+                list={list}
+              />
+            </Grid>
           ))}
-        </div>
+        </Grid>
       </main >
     </div >
   )
 }
 
+// Retrieves list from MongoDB
 export const getServerSideProps = async () => {
   try {
     await connectMongo();

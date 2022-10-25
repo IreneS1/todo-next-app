@@ -7,10 +7,11 @@ export default async function handler(req, res) {
         method,
     } = req
 
+    // connect to database
     await connectMongo();
 
     switch (method) {
-        case 'POST':
+        case 'POST': // Create
             try {
                 const item = await Item.create(req.body);
                 console.log('CREATED DOCUMENT');
@@ -52,12 +53,3 @@ export default async function handler(req, res) {
     }
 
 }
-    // try {
-    //     const item = await Item.create(req.body);
-    //     console.log('CREATED DOCUMENT');
-    //     console.log(req.body);
-    //     res.json({ item });
-    // } catch (error) {
-    //     console.log(error);
-    //     res.json({ error });
-    // }

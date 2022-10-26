@@ -30,7 +30,7 @@ export default function userInput() {
     return (
         <>
             <FormControl sx={{ width: '20ch' }} variant="standard">
-                <InputLabel htmlFor="standard-adornment-password">Add List</InputLabel>
+                <InputLabel htmlFor="standard-input">Add List</InputLabel>
                 <Input
                     id="List"
                     type='text'

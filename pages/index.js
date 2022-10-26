@@ -21,14 +21,23 @@ export default function Home({ lists }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main >
-        <Typography className={styles.header} variant='h2'> Your Task Lists</Typography>
-        <Grid item >
-          <Typography variant='body1' color='text.secondary'>Collections:</Typography>
-          <Grid item >
+      <main className={styles.main}>
+        <Typography variant='h2'> Your Task Lists</Typography>
+        <Grid
+          container
+          spacing={10}
+          direction='row'
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
+          <Grid item xs={8}>
+            <Typography variant='body1' color='text.secondary'>Collections:</Typography>
+          </Grid>
+          <Grid item xs={4}>
             <UserInput />
           </Grid>
         </Grid>
+        <br />
         <Grid
           container
           spacing={6}
@@ -36,8 +45,6 @@ export default function Home({ lists }) {
           justifyContent="space-evenly"
           alignItems="center"
         >
-
-          <br />
           {storedList.map((list) => (
             <Grid key={list._id} item xs={4}>
               <ListCard

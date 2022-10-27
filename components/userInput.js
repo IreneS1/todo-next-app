@@ -2,7 +2,7 @@ import React from 'react'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { IconButton, FormControl, InputLabel, InputAdornment, Input } from '@mui/material';
 
-export default function userInput({ onAddList }) {
+export default function userInput({ onAdd, inputValue, listId }) {
     const [userInput, setUserInput] = React.useState('');
 
     const handleChange = (e) => {
@@ -14,7 +14,7 @@ export default function userInput({ onAddList }) {
     const handleAdd = (e) => {
         e.preventDefault();
         console.log("This is the userInput", userInput);
-        onAddList(userInput);
+        onAdd(userInput, listId);
         setUserInput('');
     }
 
@@ -22,7 +22,7 @@ export default function userInput({ onAddList }) {
     return (
         <>
             <FormControl sx={{ width: '20ch' }} variant="standard">
-                <InputLabel htmlFor="standard-input">Add List</InputLabel>
+                <InputLabel htmlFor="standard-input">Add {inputValue}</InputLabel>
                 <Input
                     id="List"
                     type='text'

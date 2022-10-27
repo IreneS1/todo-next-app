@@ -23,7 +23,6 @@ export default function Home({ lists }) {
       },
       body: JSON.stringify({
         title: newList,
-        // listId: ObjectID()
       }),
     });
     const data = await res.json();
@@ -35,7 +34,7 @@ export default function Home({ lists }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Todo List</title>
         <meta name="description" content="Todo List App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -53,7 +52,7 @@ export default function Home({ lists }) {
             <Typography variant='body1' color='text.secondary'>Collections:</Typography>
           </Grid>
           <Grid item xs={4}>
-            <UserInput onAddList={addList} />
+            <UserInput onAdd={addList} inputValue={`List`} />
           </Grid>
         </Grid>
         <br />

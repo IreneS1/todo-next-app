@@ -7,6 +7,7 @@ import { Typography, Grid } from '@mui/material'
 import ListItem from '../../components/ListItem'
 import Head from 'next/head'
 import UserInput from '../../components/userInput'
+import styles from '../../styles/List.module.css'
 
 /* UI list page where the list title and the list items show up*/
 const ListPage = ({ list, tasks }) => {
@@ -36,36 +37,57 @@ const ListPage = ({ list, tasks }) => {
         setStoredItems(newItems)
     }
 
+    // Handle soft delete with PUT
+    const deleteItem = async (itemId) => {
+        const res = await fetch(`/api/lists/${itemId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ isDeleted: true }),
+        })
+        const item = await res.json();
+        const itemIndex = storedItems.indexOf(item);
+        storedItems.splice(itemIndex, 1);
+        const newTodoItems = [].concat(storedItems);
+        setStoredItems(newTodoItems);
+    }
+
+    // Check box with PUT
+
     return (
-        <div >
+        <div className={styles.container}>
             <Head>
                 <title>{list.title} List</title>
                 <meta name="description" content="Todo List App" />
             </Head>
-            <Typography variant='h2'>{list.title}</Typography>
-            <Grid
-                container
-                spacing={10}
-                direction='row'
-                justifyContent="space-evenly"
-                alignItems="center"
-            >
-                <Grid item xs={8}>
-                    <Typography variant='body1' color='text.secondary'>Tasks:</Typography>
+            <main className={styles.main}>
+                <Typography variant='h2'>{list.title}</Typography>
+                <Grid
+                    container
+                    spacing={10}
+                    direction='row'
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                >
+                    <Grid item xs={8}>
+                        <Typography variant='body1' color='text.secondary'>Tasks:</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <UserInput onAdd={addItem} inputValue={`Task`} listId={listId} />
+                    </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                    <UserInput onAdd={addItem} inputValue={`Task`} listId={listId} />
-                </Grid>
-            </Grid>
-            <br />
-            {storedItems.map((tasks) => (
-                <Grid key={tasks._id} item>
-                    <ListItem
-                        key={tasks._id}
-                        item={tasks}
-                    />
-                </Grid>
-            ))}
+                <br />
+                {storedItems.map((tasks) => (
+                    <Grid key={tasks._id} item>
+                        <ListItem
+                            key={tasks._id}
+                            item={tasks}
+                            deleteItem={deleteItem}
+                        />
+                    </Grid>
+                ))}
+            </main>
         </div>
     )
 }

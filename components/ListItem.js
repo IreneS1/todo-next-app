@@ -9,13 +9,16 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
 
-export default function ListItem({ item }) {
+export default function ListItem({ item, deleteItem }) {
     const [checked, setChecked] = React.useState(true);
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
 
+    const handleDelete = () => {
+        deleteItem(item._id)
+    }
     return (
         <Card elevation={8} sx={{ minWidth: 410, borderRadius: "18px" }}>
             <CardContent>
@@ -33,7 +36,11 @@ export default function ListItem({ item }) {
                         </Typography>
                     </Grid>
                     <Grid item xs>
-                        <IconButton edge="end" aria-label="delete">
+                        <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={handleDelete}
+                        >
                             <DeleteForeverIcon />
                         </IconButton>
                     </Grid>

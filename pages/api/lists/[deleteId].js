@@ -1,6 +1,5 @@
 import connectMongo from '../../../utils/connectMongo';
 import Item from '../../../models/model.item';
-import List from '../../../models/model.list';
 
 export default async function handler(req, res) {
     const { query: { id } } = req

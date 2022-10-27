@@ -8,15 +8,14 @@ import ListItem from '../../components/ListItem'
 import Head from 'next/head'
 import UserInput from '../../components/userInput'
 import styles from '../../styles/List.module.css'
+import BackButton from '../../components/BackButton'
 
 /* UI list page where the list title and the list items show up*/
 const ListPage = ({ list, tasks }) => {
-    const router = useRouter()
+    // const router = useRouter()
 
     const [storedItems, setStoredItems] = useState(tasks)
     const [listId, setListId] = useState(list._id)
-
-    console.log("stored:", storedItems)
 
     // Call back funtion for userInput
     // POSTS to mongoDB new item 
@@ -32,7 +31,6 @@ const ListPage = ({ list, tasks }) => {
             }),
         });
         const data = await res.json();
-        console.log(data);
         const newItems = [...storedItems, data.item]
         setStoredItems(newItems)
     }
@@ -62,31 +60,47 @@ const ListPage = ({ list, tasks }) => {
                 <meta name="description" content="Todo List App" />
             </Head>
             <main className={styles.main}>
+                <Grid
+                    container
+                    direction='row'
+                    justifyContent="flex-start">
+                    <Grid item>
+                        <BackButton />
+                    </Grid>
+                </Grid>
                 <Typography variant='h2'>{list.title}</Typography>
                 <Grid
                     container
-                    spacing={10}
                     direction='row'
-                    justifyContent="space-evenly"
+                    justifyContent="center"
                     alignItems="center"
                 >
-                    <Grid item xs={8}>
+                    <Grid item xs={4}>
                         <Typography variant='body1' color='text.secondary'>Tasks:</Typography>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <UserInput onAdd={addItem} inputValue={`Task`} listId={listId} />
                     </Grid>
                 </Grid>
                 <br />
-                {storedItems.map((tasks) => (
-                    <Grid key={tasks._id} item>
-                        <ListItem
-                            key={tasks._id}
-                            item={tasks}
-                            deleteItem={deleteItem}
-                        />
-                    </Grid>
-                ))}
+                <br />
+                <Grid
+                    container
+                    spacing={2}
+                    direction='column'
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    {storedItems.map((tasks) => (
+                        <Grid key={tasks._id} item>
+                            <ListItem
+                                key={tasks._id}
+                                item={tasks}
+                                deleteItem={deleteItem}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
             </main>
         </div>
     )

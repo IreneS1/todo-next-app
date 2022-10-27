@@ -9,7 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
 
-export default function item() {
+export default function ListItem({ item }) {
     const [checked, setChecked] = React.useState(true);
 
     const handleChange = (event) => {
@@ -29,7 +29,7 @@ export default function item() {
                     </Grid>
                     <Grid item xs={8}>
                         <Typography color="text.secondary" >
-                            Todo Item
+                            {item.title}
                         </Typography>
                     </Grid>
                     <Grid item xs>

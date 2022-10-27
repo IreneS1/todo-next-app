@@ -11,19 +11,25 @@ export default function listCard({ list }) {
     return (
         <>
             <Card elevation={8} sx={{ maxWidth: 400, borderRadius: "10px" }}>
-                <CardActionArea>
-                    <CardContent>
-                        <Box
-                            sx={{
-                                height: 150,
-                            }}
-                        >
-                            <Typography variant="h5" component='div'>
-                                {list.title}
-                            </Typography>
-                        </Box>
-                    </CardContent>
-                </CardActionArea>
+                <Link
+                    href={{
+                        pathname: `/list/${list._id}`,
+
+                    }} >
+                    <CardActionArea>
+                        <CardContent>
+                            <Box
+                                sx={{
+                                    height: 150,
+                                }}
+                            >
+                                <Typography variant="h5" component='div'>
+                                    {list.title}
+                                </Typography>
+                            </Box>
+                        </CardContent>
+                    </CardActionArea>
+                </Link>
             </Card >
         </>
     );

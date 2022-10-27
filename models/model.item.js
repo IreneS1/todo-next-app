@@ -1,6 +1,10 @@
-import { Schema, model, models, Types } from 'mongoose';
+import mongoose from 'mongoose';
 
-const itemSchema = new Schema({
+const itemSchema = new mongoose.Schema({
+    listId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "listSchema",
+    },
     title: {
         type: String,
         required: true,
@@ -10,11 +14,12 @@ const itemSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    list_id: {
-        type: String,
-    }
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 
-const Item = models.Item || model('Item', itemSchema);
+const Item = mongoose.models.Item || mongoose.model("Item", itemSchema);
 
 export default Item;

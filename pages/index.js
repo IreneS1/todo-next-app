@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import ListCard from '../components/listCard'
+import TodoList from '../components/TodoList'
 import { Typography, Grid } from '@mui/material'
 import connectMongo from '../utils/connectMongo';
 import List from '../models/model.list';
@@ -12,6 +12,25 @@ export default function Home({ lists }) {
   // stores getServerSideProps list from mongoDB into a state 
   // to be able to manipulate in the ui
   const [storedList, setStoredList] = React.useState(lists)
+
+  // Call back funtion for userInput
+  // POSTS to mongoDB new list 
+  const addList = async (newList) => {
+    const res = await fetch('/api/lists/list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: newList,
+        // listId: ObjectID()
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    const newLists = [...storedList, data.list]
+    setStoredList(newLists)
+  }
 
   return (
     <div className={styles.container}>
@@ -34,26 +53,11 @@ export default function Home({ lists }) {
             <Typography variant='body1' color='text.secondary'>Collections:</Typography>
           </Grid>
           <Grid item xs={4}>
-            <UserInput />
+            <UserInput onAddList={addList} />
           </Grid>
         </Grid>
         <br />
-        <Grid
-          container
-          spacing={6}
-          direction='row'
-          justifyContent="space-evenly"
-          alignItems="center"
-        >
-          {storedList.map((list) => (
-            <Grid key={list._id} item xs={4}>
-              <ListCard
-                key={list._id}
-                list={list}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        <TodoList storedList={storedList} />
       </main >
     </div >
   )
@@ -65,7 +69,6 @@ export const getServerSideProps = async () => {
     await connectMongo();
     console.log('FETCHING DOCUMENTS');
     const lists = await List.find();
-    console.log('FETCHED DOCUMENTS');
 
     return {
       props: {

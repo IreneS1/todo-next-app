@@ -1,13 +1,17 @@
-import { Schema, model, models } from 'mongoose';
+import mongoose from 'mongoose';
 
-const listSchema = new Schema({
+const listSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
         unique: true,
     },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 
-const List = models.List || model('List', listSchema);
+const List = mongoose.models.List || mongoose.model('List', listSchema);
 
 export default List;

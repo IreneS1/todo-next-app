@@ -8,16 +8,21 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
 
-export default function ListItem({ item, deleteItem }) {
-    const [checked, setChecked] = React.useState(true);
+export default function ListItem({ item, deleteItem, checkItem }) {
+    const [checked, setChecked] = React.useState(false);
 
-    const handleChange = (event) => {
+    // handle check sets checked status to true and calls call back function
+    // checkItem with param of the item id
+    const handleCheck = (event) => {
         setChecked(event.target.checked);
+        checkItem(item._id)
+        setChecked(true)
     };
 
     const handleDelete = () => {
         deleteItem(item._id)
     }
+
     return (
         <Card elevation={8} sx={{ minWidth: 410, borderRadius: "18px" }}>
             <CardContent>
@@ -25,7 +30,7 @@ export default function ListItem({ item, deleteItem }) {
                     <Grid item xs >
                         <Checkbox
                             checked={checked}
-                            onChange={handleChange}
+                            onChange={handleCheck}
                             inputProps={{ 'aria-label': 'controlled' }}
                         />
                     </Grid>

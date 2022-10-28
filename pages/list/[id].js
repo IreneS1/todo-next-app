@@ -52,6 +52,16 @@ const ListPage = ({ list, tasks }) => {
     }
 
     // Check box with PUT
+    const checkItem = async (itemId) => {
+        const res = await fetch(`/api/lists/${itemId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: true }),
+        })
+        // const item = await res.json();
+    }
 
     return (
         <div className={styles.container}>
@@ -97,6 +107,7 @@ const ListPage = ({ list, tasks }) => {
                                 key={tasks._id}
                                 item={tasks}
                                 deleteItem={deleteItem}
+                                checkItem={checkItem}
                             />
                         </Grid>
                     ))}

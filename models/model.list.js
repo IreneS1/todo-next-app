@@ -6,10 +6,6 @@ const listSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    isDeleted: {
-        type: Boolean,
-        default: false,
-    },
 });
 
 const List = mongoose.models.List || mongoose.model('List', listSchema);

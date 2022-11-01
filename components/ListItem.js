@@ -9,19 +9,31 @@ import Grid from '@mui/material/Grid';
 
 
 export default function ListItem({ item, deleteItem, checkItem }) {
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = React.useState(item.completed);
 
     // handle check sets checked status to true and calls call back function
     // checkItem with param of the item id
     const handleCheck = (event) => {
         setChecked(event.target.checked);
-        checkItem(item._id)
-        setChecked(true)
+        const check = checkState()
+        checkItem(item._id, check)
     };
 
     const handleDelete = () => {
         deleteItem(item._id)
     }
+
+
+
+    // Function toggles between true and false checking state
+    const checkState = () => {
+        if (!checked) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 
     return (
         <Card elevation={8} sx={{ minWidth: 410, borderRadius: "18px" }}>
@@ -35,7 +47,10 @@ export default function ListItem({ item, deleteItem, checkItem }) {
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography color="text.secondary" >
+                        <Typography
+                            color="text.secondary"
+                            style={{ textDecoration: checked ? 'line-through' : 'none' }}
+                        >
                             {item.title}
                         </Typography>
                     </Grid>

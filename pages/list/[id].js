@@ -17,6 +17,8 @@ const ListPage = ({ list, tasks }) => {
     const [storedItems, setStoredItems] = useState(tasks)
     const [listId, setListId] = useState(list._id)
 
+    console.log(tasks);
+
     // Call back funtion for userInput
     // POSTS to mongoDB new item 
     const addItem = async (newItem, listId) => {
@@ -45,21 +47,34 @@ const ListPage = ({ list, tasks }) => {
             body: JSON.stringify({ isDeleted: true }),
         })
         const item = await res.json();
-        const itemIndex = storedItems.indexOf(item);
-        storedItems.splice(itemIndex, 1);
+        let index = storedItems.findIndex(i => i.title === item.data.title)
+
+        // const itemIndex = storedItems.indexOf(item.data.title);
+        // console.log("index", itemIndex)
+        storedItems.splice(index, 1);
         const newTodoItems = [].concat(storedItems);
         setStoredItems(newTodoItems);
     }
 
     // Check box with PUT
-    const checkItem = async (itemId) => {
-        const res = await fetch(`/api/lists/${itemId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ status: true }),
-        })
+    const checkItem = async (itemId, check) => {
+        if (check === false) {
+            const res = await fetch(`/api/lists/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ completed: false }),
+            })
+        } else {
+            const res = await fetch(`/api/lists/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ completed: true }),
+            })
+        }
         // const item = await res.json();
     }
 

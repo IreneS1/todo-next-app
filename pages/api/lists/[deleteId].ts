@@ -1,8 +1,14 @@
 import connectMongo from '../../../utils/connectMongo';
 import Item from '../../../models/model.item';
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
-    const { query: { id } } = req
+// adds type to response data
+type Data = {
+    data?: object
+    success: boolean;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     const itemId = req.query.deleteId
     console.log("query:", itemId)
     console.log("req body", req.body)

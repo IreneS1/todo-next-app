@@ -1,7 +1,16 @@
 import connectMongo from '../../../utils/connectMongo';
 import List from '../../../models/model.list';
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
+// adds type to response data
+type Data = {
+    list?: object;
+    data?: object
+    success?: boolean;
+    error?: unknown;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     const {
         query: { id },

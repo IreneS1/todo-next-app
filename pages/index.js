@@ -7,10 +7,17 @@ import connectMongo from '../utils/connectMongo';
 import List from '../models/model.list';
 import UserInput from '../components/userInput'
 
+// export interface IStoredList {
+//   _id: string,
+//   title: string,
+//   __v: number,
+// }
+
 export default function Home({ lists }) {
   // stores getServerSideProps list from mongoDB into a state 
   // to be able to manipulate in the ui
   const [storedList, setStoredList] = React.useState(lists)
+  console.log("stored list", storedList)
 
   // Call back funtion for userInput
   // POSTS to mongoDB new list 

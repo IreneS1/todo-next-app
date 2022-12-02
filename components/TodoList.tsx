@@ -1,12 +1,13 @@
 import React from "react";
 import ListCard from "./listCard";
 import { Grid } from "@mui/material";
+import { IList } from "../utils/interfaces";
 
-// interface StoredList {
-//   storedList: { _id: number };
-// }
+type TodoListProps = {
+  storedList: IList[];
+};
 
-function TodoList({ storedList }) {
+function TodoList({ storedList }: TodoListProps) {
   return (
     <Grid
       container

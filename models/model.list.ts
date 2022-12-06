@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-export interface IList extends mongoose.Document {
+export interface IListSchema extends mongoose.Document {
   title: string;
 }
 
@@ -13,7 +13,7 @@ export const listSchema = new mongoose.Schema({
 });
 
 const List =
-  (mongoose.models.List as mongoose.Model<IList>) ||
-  mongoose.model<IList>("List", listSchema);
+  (mongoose.models.List as mongoose.Model<IListSchema>) ||
+  mongoose.model<IListSchema>("List", listSchema);
 
 export default List;

@@ -48,6 +48,7 @@ export default function ListItem({
         <Grid container alignItems="center">
           <Grid item xs>
             <Checkbox
+              data-testid="checkbox"
               checked={checked}
               onChange={handleCheck}
               inputProps={{ "aria-label": "controlled" }}
@@ -62,7 +63,12 @@ export default function ListItem({
             </Typography>
           </Grid>
           <Grid item xs>
-            <IconButton edge="end" aria-label="delete" onClick={handleDelete}>
+            <IconButton
+              data-testid="delete-icon"
+              edge="end"
+              aria-label="delete"
+              onClick={handleDelete}
+            >
               <DeleteForeverIcon />
             </IconButton>
           </Grid>

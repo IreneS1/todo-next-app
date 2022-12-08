@@ -15,7 +15,11 @@ type ListProps = {
 export default function listCard({ list }: ListProps) {
   return (
     <>
-      <Card elevation={8} sx={{ maxWidth: 400, borderRadius: "10px" }}>
+      <Card
+        id={list.title}
+        elevation={8}
+        sx={{ maxWidth: 400, borderRadius: "10px" }}
+      >
         <Link
           href={{
             pathname: `/list/${list._id}`,

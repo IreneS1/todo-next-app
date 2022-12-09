@@ -1,24 +1,7 @@
 import React from "react";
-import Home, { getServerSideProps } from "../pages/index";
 import { render, screen } from "@testing-library/react";
 import TodoList from "../components/TodoList";
 import UserInput from "../components/userInput";
-import { ParsedUrlQuery } from "querystring";
-import { GetServerSidePropsContext } from "next";
-import mongoose from "mongoose";
-
-describe("getServerSideProps", () => {
-  beforeAll(() => {
-    jest.mock("mongodb");
-  });
-  it("checks on good case", () => {
-    // const context = {
-    //   params: { id: "635c03fc63bd12f022aaa6ac" } as ParsedUrlQuery,
-    // };
-    // const value = getServerSideProps(context as GetServerSidePropsContext);
-    // expect(value).toEqual({ props: {} });
-  });
-});
 
 describe("The home page", () => {
   it("renders todo list", () => {

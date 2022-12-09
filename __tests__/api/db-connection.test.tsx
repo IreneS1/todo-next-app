@@ -3,9 +3,6 @@
  */
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { MongoClient } from "mongodb";
-import { render } from "react-dom";
-import Home from "../pages";
-import { IList } from "../utils/interfaces";
 
 describe("mongodb", () => {
   const lists = [

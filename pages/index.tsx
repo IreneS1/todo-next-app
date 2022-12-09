@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import TodoList from "../components/TodoList";
@@ -16,8 +16,8 @@ interface HomeProps {
 export default function Home({ lists }: HomeProps) {
   // stores getServerSideProps list from mongoDB into a state
   // to be able to manipulate in the ui
-  const [storedList, setStoredList] = React.useState(lists);
-  console.log("stored list", storedList);
+  const [storedList, setStoredList] = useState<IList[]>(lists);
+  //console.log("stored list", storedList);
 
   // Call back function for userInput
   // POSTS to mongoDB new list

@@ -1,5 +1,5 @@
 import connectMongo from "../../../utils/connectMongo";
-import List, { IList } from "../../../models/model.list";
+import List, { IListSchema } from "../../../models/model.list";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // adds type to response data
@@ -24,7 +24,7 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        const list = (await List.create(req.body)) as IList;
+        const list = (await List.create(req.body)) as IListSchema;
         console.log("CREATED DOCUMENT");
         console.log(req.body);
         res.json({ list });

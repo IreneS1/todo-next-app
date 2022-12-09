@@ -32,7 +32,7 @@ export default function listCard({ list }: ListProps) {
                   height: 150,
                 }}
               >
-                <Typography variant="h5" component="div">
+                <Typography id="list-title" variant="h5" component="div">
                   {list.title}
                 </Typography>
               </Box>

@@ -3,14 +3,8 @@
  */
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { MongoClient } from "mongodb";
-import {
-  createMocks,
-  RequestMethod,
-  Query,
-  createResponse,
-  createRequest,
-} from "node-mocks-http";
-import addList from "../../pages/index";
+import { createMocks } from "node-mocks-http";
+import listHandler from "../../pages/api/lists/list";
 
 describe("Add List API", () => {
   let con: MongoClient;
@@ -19,6 +13,7 @@ describe("Add List API", () => {
   beforeAll(async () => {
     // This will create an new instance of "MongoMemoryServer" and automatically start it
     mongoServer = await MongoMemoryServer.create();
+    //process.env.MONGO_URI = mongoServer.getUri();
     con = await MongoClient.connect(mongoServer.getUri(), {});
   });
 
@@ -34,11 +29,14 @@ describe("Add List API", () => {
   it.only("api returns list object and status 200", async () => {
     const { req, res } = createMocks({
       method: "POST",
-      body: { title: "Work" },
+      body: { title: "Test" },
     });
 
-    addList(req, res);
+    await listHandler(req, res);
     //console.log(res);
     expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData()).list).toEqual(
+      expect.objectContaining({ __v: 0, title: "Test" })
+    );
   });
 });

@@ -1,5 +1,5 @@
 import connectMongo from "../../../utils/connectMongo";
-import Item, { IItem } from "../../../models/model.item";
+import Item, { IItemSchema } from "../../../models/model.item";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // adds type to response data
@@ -7,7 +7,7 @@ type Data = {
   data?: object;
   success: boolean;
 };
-// req.method PUT to soft delete
+// req.method PUT to soft delete and check and item and mark as completed
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -20,7 +20,10 @@ export default async function handler(
   await connectMongo();
 
   try {
-    const item = (await Item.findByIdAndUpdate(itemId, req.body)) as IItem;
+    const item = (await Item.findByIdAndUpdate(
+      itemId,
+      req.body
+    )) as IItemSchema;
     if (!item) {
       return res.status(400).json({ success: false });
     }

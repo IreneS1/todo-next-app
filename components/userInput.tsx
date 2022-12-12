@@ -39,12 +39,16 @@ export default function userInput({
       <FormControl sx={{ width: "20ch" }} variant="standard">
         <InputLabel htmlFor="standard-input">Add {inputValue}</InputLabel>
         <Input
-          id="List"
+          id="user-input"
           type="text"
           onChange={handleChange}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton aria-label="Add list" onClick={handleAdd}>
+              <IconButton
+                id="add-button"
+                aria-label="Add list"
+                onClick={handleAdd}
+              >
                 <AddCircleIcon />
               </IconButton>
             </InputAdornment>

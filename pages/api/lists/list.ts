@@ -14,10 +14,10 @@ export default async function listHandler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {
-    query: { id },
-    method,
-  } = req;
+  // const {
+  //   query: { id },
+  //   method,
+  // } = req;
 
   try {
     await connectMongo();
@@ -28,11 +28,9 @@ export default async function listHandler(
     }
     console.log("CREATED DOCUMENT");
     console.log(req.body);
-    res.json({ list });
+    res.status(200).json({ list });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error });
   }
-
-  //res.status(400).json({ success: false });
 }

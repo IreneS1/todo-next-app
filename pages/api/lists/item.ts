@@ -14,10 +14,10 @@ export default async function itemHandler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {
-    query: { id },
-    method,
-  } = req;
+  // const {
+  //   query: { id },
+  //   method,
+  // } = req;
 
   try {
     // connect to database
@@ -30,10 +30,9 @@ export default async function itemHandler(
     console.log("CREATED DOCUMENT");
     console.log("create item", item);
     console.log(req.body);
-    res.json({ item });
+    res.status(200).json({ item });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error });
   }
-  //res.status(400).json({ success: false });
 }

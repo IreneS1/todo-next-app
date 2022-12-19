@@ -6,7 +6,7 @@ import { Typography, Grid } from "@mui/material";
 import connectMongo from "../utils/connectMongo";
 import List from "../models/model.list";
 import UserInput from "../components/userInput";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsResult } from "next";
 import { IList } from "../utils/interfaces";
 
 interface HomeProps {
@@ -71,7 +71,9 @@ export default function Home({ lists }: HomeProps) {
 }
 
 // Retrieves list from MongoDB
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+export const getServerSideProps: GetServerSideProps = async (): Promise<
+  GetServerSidePropsResult<HomeProps>
+> => {
   try {
     await connectMongo();
     console.log("FETCHING DOCUMENTS");

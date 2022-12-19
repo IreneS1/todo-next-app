@@ -1,10 +1,9 @@
 /**
  * @jest-environment node
  */
-import { Done } from "@mui/icons-material";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { createMocks } from "node-mocks-http";
-import listHandler from "../../pages/api/lists/list";
+import itemHandler from "../../pages/api/lists/item";
 
 describe("Add List API", () => {
   let mongoServer: MongoMemoryServer, uri;
@@ -20,16 +19,21 @@ describe("Add List API", () => {
     await mongoServer.stop();
   });
 
-  test("api returns list object and status 200", async () => {
+  test("api returns item object and status 200", async () => {
     const { req, res } = createMocks({
       method: "POST",
-      body: { title: "Test" },
+      body: { title: "Test item" },
     });
 
-    await listHandler(req, res);
+    await itemHandler(req, res);
     expect(res._getStatusCode()).toBe(200);
-    expect(JSON.parse(res._getData()).list).toEqual(
-      expect.objectContaining({ __v: 0, title: "Test" })
+    expect(JSON.parse(res._getData()).item).toEqual(
+      expect.objectContaining({
+        title: "Test item",
+        completed: false,
+        isDeleted: false,
+        __v: 0,
+      })
     );
   });
 });

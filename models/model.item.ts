@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+mongoose.set("strictQuery", false); // this line is to remove mongoose warning
 
 export interface IItemSchema extends mongoose.Document {
   listId: mongoose.Schema.Types.ObjectId;

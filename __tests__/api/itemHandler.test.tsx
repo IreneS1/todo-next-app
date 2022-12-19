@@ -19,7 +19,7 @@ describe("Add List API", () => {
     await mongoServer.stop();
   });
 
-  test("api returns list object and status 200", async () => {
+  test("api returns item object and status 200", async () => {
     const { req, res } = createMocks({
       method: "POST",
       body: { title: "Test item" },

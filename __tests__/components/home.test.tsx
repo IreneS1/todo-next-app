@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import TodoList from "../components/TodoList";
-import UserInput from "../components/userInput";
-import Home from "../pages/index";
+import TodoList from "../../components/TodoList";
+import UserInput from "../../components/userInput";
+import Home from "../../pages/index";
 
 describe("The home page", () => {
   const lists = [
@@ -10,9 +10,12 @@ describe("The home page", () => {
     { _id: "635c040d63bd12f022aaa6ae", title: "Work", __v: 0 },
     { _id: "635c041e63bd12f022aaa6b0", title: "Groceries", __v: 0 },
   ];
-  // it("renders home page", () => {
-  //   render(<Home lists={lists} />);
-  // });  ** ReferenceError: TextEncoder is not defined **
+  it.only("renders home page", () => {
+    //render(<Home lists={lists} />);
+    const component = render(<Home lists={lists} />);
+    console.log(component);
+    console.log(component.container.childNodes);
+  });
 
   it("renders todo list", () => {
     render(<TodoList storedList={lists} />);

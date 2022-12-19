@@ -8,7 +8,6 @@ const connectMongo = async () => {
     );
   }
   mongoose.connect(MONGODB_URI!);
-  console.log(process.env.MONGO_URI);
 };
 
 export default connectMongo;

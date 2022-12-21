@@ -9,7 +9,7 @@ import UserInput from "../../components/userInput";
 import styles from "../../styles/List.module.css";
 import BackButton from "../../components/BackButton";
 import { GetServerSideProps } from "next";
-import { ParsedUrlQuery } from "querystring";
+//import { ParsedUrlQuery } from "querystring";
 import { IItem, IList } from "../../utils/interfaces";
 
 type ListPageProps = {

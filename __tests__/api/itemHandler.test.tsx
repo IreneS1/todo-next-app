@@ -36,4 +36,14 @@ describe("Add List API", () => {
       })
     );
   });
+
+  test("no item found", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+    });
+
+    await itemHandler(req, res);
+    expect(res._getStatusCode()).toBe(500);
+    expect(res._getJSONData()).toBe({ error: {} });
+  });
 });

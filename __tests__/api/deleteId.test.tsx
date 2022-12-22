@@ -2,12 +2,11 @@
  * @jest-environment node
  */
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { createMocks } from "node-mocks-http";
 var httpMocks = require("node-mocks-http");
 import itemHandler from "../../pages/api/lists/item";
 import handler from "../../pages/api/lists/[deleteId]";
 
-describe("Add List API", () => {
+describe("delete/completed items API", () => {
   let mongoServer: MongoMemoryServer, uri;
 
   beforeAll(async () => {
@@ -21,7 +20,7 @@ describe("Add List API", () => {
     await mongoServer.stop();
   });
 
-  test("api delete, soft deletes item with id", async () => {
+  test("sucessfully soft deletes item with id", async () => {
     // create item
     const req_01 = httpMocks.createRequest({
       method: "POST",
@@ -60,10 +59,33 @@ describe("Add List API", () => {
     });
     const res_02 = httpMocks.createResponse();
     await handler(req_02, res_02);
-    expect(expect.stringContaining("no item id found"));
-    //console.log(res_02);
-    expect(res_02.statusCode).toBe(400);
-    expect(res_02._getJSONData()).toEqual({ success: false });
+    expect(res_02.statusCode).toBe(500);
+    expect(res_02._getData()).toEqual('"No item id found"');
+  });
+
+  test("wrong method error", async () => {
+    // create item
+    const req_01 = httpMocks.createRequest({
+      method: "POST",
+      body: { title: "Test item" },
+    });
+    const res_01 = httpMocks.createResponse();
+    await itemHandler(req_01, res_01);
+    // store item's id
+    let itemId = JSON.parse(res_01._getData()).item._id;
+    // soft delete item
+    const req_02 = httpMocks.createRequest({
+      method: "POST",
+      body: { isDeleted: true },
+      query: { deleteId: itemId },
+    });
+    const res_02 = httpMocks.createResponse();
+    await handler(req_02, res_02);
+    expect(res_02.statusCode).toBe(500);
+    console.log("res", res_02._getJSONData());
+    expect(res_02._getJSONData()).toEqual(
+      "Unsupported method POST. Only PUT method is supported"
+    );
   });
 
   test("completed/checked an item successfully", async () => {
@@ -96,7 +118,7 @@ describe("Add List API", () => {
     );
   });
 
-  test("when item is unchecked/uncompleted, the item is not completed anymore", async () => {
+  test("unchecked/uncompleted the item after being completed", async () => {
     // create item
     const req_01 = httpMocks.createRequest({
       method: "POST",

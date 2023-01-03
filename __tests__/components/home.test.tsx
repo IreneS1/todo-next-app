@@ -37,7 +37,6 @@ describe("Tests the home page", () => {
 
   it("adds new list with userEvent", async () => {
     const component = render(<Home lists={lists} />);
-
     // get input
     const addListInput = screen.getByRole("textbox");
     const addListButton = screen.getByRole("button", { name: /add list/i });
@@ -58,8 +57,17 @@ describe("Tests the home page", () => {
     for (let l of lists) {
       expect(screen.getByText(l.title)).toBeInTheDocument;
     }
-    screen.debug(screen.getByRole("textbox"));
   });
+
+  it("navigation works when a list card is clicked", () => {
+    render(<Home lists={lists} />);
+    // look for list card
+    const list = screen.findByText("Work");
+    // click on the list
+
+    // check url is correct
+  });
+
   describe("todo list component", () => {
     it("renders todo list", () => {
       render(<TodoList storedList={lists} />);
